@@ -1,4 +1,6 @@
-export * from './quiz.model.js';
-export * from './question.model.js';
-export * from './user.model.js';
-export * from './submission.model.js';
+module.exports = {
+    Question: require('./question.model'),
+    Quiz: require('./quiz.model'),
+    Submission: require('./submission.model'),
+    User: require('./user.model')
+}

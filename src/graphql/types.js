@@ -7,25 +7,25 @@ const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt, GraphQLFloat, G
 //UserType
 
 const UserType = new GraphQLObjectType({
-    name: user,
-    description :'User Type',
+    name: 'User',
+    description: 'User type',
     fields: () => ({
         id: { type: GraphQLID },
         username: { type: GraphQLString },
         email: { type: GraphQLString },
         quizzes: {
             type: new GraphQLList(QuizType),
-            resolve(parent, args) {
+            resolve(parent,args) {
                 return Quiz.find({ userId: parent.id })
-            },
-            submissions: {
-                type: new GraphQLList(SubmissionType),
-                resolve(parent, args) {
-                    return Submission.find({ userId:  parent.id})
-                }
+            }
+        },
+        submissions: {
+            type: new GraphQLList(SubmissionType),
+            resolve(parent,args) {
+                return Submission.find({ userId: parent.id })
             }
         }
-    })   
+    })
 })
 
 //questionType
@@ -122,13 +122,13 @@ const SubmissionType = new GraphQLObjectType({
         user: {
             type: UserType,
             resolve(parent,args) {
-                return User.findOne({ id: parent.userId })
+                return User.findOne({ _id: parent.userId })
             }
         },
         quiz: {
             type: QuizType,
             resolve(parent,args) {
-                return Quiz.findOne({ id: parent.quizId })
+                return Quiz.findOne({ _id: parent.quizId })
             }
         }
     })
